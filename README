@@ -1,0 +1,1 @@
+This is the app and lib directory of a Ruby on Rails project I worked on for Key Curriculum press in 2010-2011. It was a digital rights management server that would be contacted by an activation where it would log information about the computer using it to determine if the number of computers using a license was equal to the number purchased for that license.

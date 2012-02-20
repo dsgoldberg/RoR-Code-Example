@@ -1,0 +1,23 @@
+<h1>Update Counts</h1>
+
+<table border=1>
+	<tr>
+		<th>License Name</th>
+		<th>Authorization Code</th>
+		<th>Old Comps</th>
+		<th>New Comps</th>
+		<th>Old Active</th>
+		<th>New Active</th>
+	</tr>
+	<% @updated.each do |ac_record| %>
+	<tr>
+		<td><%=h ac_record[0].license_name %></td>
+		<td><%=h ac_record[0].authorization_code %></td>
+		<td><%=h ac_record[1] %></td>
+		<td><%=h ac_record[0].active_registrations %></td>
+		<td><%=h ac_record[2] %></td>
+		<td><%=h ac_record[0].current_active_registrations %></td>
+	</tr>
+	<% end %>
+</table>
+<p><%= @num_updated %> authcodes updated</p>

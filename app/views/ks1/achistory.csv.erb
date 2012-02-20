@@ -1,0 +1,24 @@
+<% require 'csv' -%>
+RequestAt, ResponseAt, Request, Response, ResponseReason, ResponseMessage, Product, Variant, Version, Build, MIMA1, MIMA2, MIHD1, MIHD2, MISVD, IPAddress, OS, LocalRegistration
+<%= CSV.generate do |csv| 
+	@logs.each do |log|
+		csv << [log.request_at,
+    			log.response_at,
+    			log.request,
+    			log.response,
+    			log.response_reason,
+    			log.response_message,
+    			log.product,
+    			log.variant,
+    			log.version,
+    			log.build,
+    			log.mid1,
+    			log.mid2,
+    			log.hid1,
+    			log.hid2,
+    			log.sid,
+    			log.ip_address,
+    			log.os,
+    			log.local_registration]
+	end
+end %>

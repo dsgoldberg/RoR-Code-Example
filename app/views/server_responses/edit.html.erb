@@ -1,0 +1,32 @@
+<h1>Editing server_response</h1>
+
+<% form_for(@server_response) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :product %><br />
+    <%= f.text_field :product %>
+  </p>
+  <p>
+    <%= f.label :variant %><br />
+    <%= f.text_field :variant %>
+  </p>
+  <p>
+    <%= f.label :license_family %><br />
+    <%= f.text_field :license_family %>
+  </p>
+  <p>
+    <%= f.label :response_number, "Response Reason" %><br />
+    <%= f.select :response_number, options_for_select(Hash[*CommConsts::LS_RESPONSE_ARRAY.collect { |v| [v, CommConsts::LS_RESPONSE_ARRAY.index(v)]}.flatten], @server_response.response_number) %>
+  </p>
+  <p>
+    <%= f.label :response_message %><br />
+    <%= f.text_area :response_message %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @server_response %> |
+<%= link_to 'Back', server_responses_path %>

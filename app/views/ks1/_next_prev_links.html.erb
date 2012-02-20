@@ -1,0 +1,7 @@
+<% if @start_at > 1 %>
+<a href="/ks1/list?search_column=<%= params[:search_column] %>&search_text=<%= params[:search_text].nil? ? "" : URI.escape(params[:search_text], Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")) %>&sort_column=<%= params[:sort_column] %>&order=<%= params[:order] %>&search_type=<%= params[:search_type] %>&start_at=<%= @start_at - 100 %><%= params[:end_range].blank? ? "" : "&end_range=#{params[:end_range]}&start_range=#{params[:start_range]}" %>">Previous Entries</a>
+<% end %> 
+•• 
+<% if @start_at + 100 <= @total %>
+<a href="/ks1/list?search_column=<%= params[:search_column] %>&search_text=<%= params[:search_text].nil? ? "" : URI.escape(params[:search_text], Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")) %>&sort_column=<%= params[:sort_column] %>&order=<%= params[:order] %>&search_type=<%= params[:search_type] %>&start_at=<%= @start_at + 100 %><%= params[:end_range].blank? ? "" : "&end_range=#{params[:end_range]}&start_range=#{params[:start_range]}" %>">Next Entries</a>
+<% end %>

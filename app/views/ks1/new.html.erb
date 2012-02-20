@@ -1,0 +1,75 @@
+<h1>New activation_log</h1>
+
+ https://gspdrm-logger.keypress.com/gsp/key_english/server?request=Register&license_name=TestLicenseName&authorization_code=TestAuthorizationCode&local_registration=20100702&MIMA1=TestMIMA1&MIMA2=TestMIMA2&MIHD1=TestMIHD1&MIHD2=TestMIHD2&MISVD=TestMISVD&ip_address=127.0.0.1&license_family=ks1&os=TestOS&version=TestVersion&build=TestBuild&variant=TestVariant
+
+<%= Ks1Controller::LS_REQUEST_ACTIVATE %>
+<% form_for(@activation_log) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :license_name %><br />
+    <%= f.text_field :license_name %>
+  </p>
+  <p>
+    <%= f.label :authorization_code %><br />
+    <%= f.text_field :authorization_code %>
+  </p>
+  <p>
+    <%= f.label :request %><br />
+    <%= f.select :request, options_for_select([ Ks1Controller::LS_REQUEST_ACTIVATE, Ks1Controller::LS_REQUEST_DEACTIVATE ]) %>
+  </p>
+  <p>
+    <%= f.label :local_registration %><br />
+    <%= f.date_select :local_registration %>
+  </p>
+  <p>
+    <%= f.label :mima1 %><br />
+    <%= f.text_field :mima1 %>
+  </p>
+  <p>
+    <%= f.label :mima2 %><br />
+    <%= f.text_field :mima2 %>
+  </p>
+  <p>
+    <%= f.label :mihd1 %><br />
+    <%= f.text_field :mihd1 %>
+  </p>
+  <p>
+    <%= f.label :mihd2 %><br />
+    <%= f.text_field :mihd2 %>
+  </p>
+  <p>
+    <%= f.label :misvd %><br />
+    <%= f.text_field :misvd %>
+  </p>
+  <p>
+    <%= f.label :ip_address %><br />
+    <%= f.text_field :ip_address %>
+  </p>
+  <p>
+    <%= f.label :license_family %><br />
+    <%= f.text_field :license_family, :value => "ks1" %>
+  </p>
+  <p>
+    <%= f.label :product %><br />
+    <%= f.text_field :product %>
+  </p>
+  <p>
+    <%= f.label :version %><br />
+    <%= f.text_field :version %>
+  </p>
+  <p>
+    <%= f.label :variant %><br />
+    <%= f.text_field :variant %>
+  </p>
+  <p>
+    <%= f.label :build %><br />
+    <%= f.text_field :build %>
+  </p>
+  <p>
+    <%= f.label :os %><br />
+    <%= f.text_field :os %>
+  </p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>

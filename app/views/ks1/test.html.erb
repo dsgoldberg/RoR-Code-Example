@@ -1,0 +1,26 @@
+<h1>Test page</h1>
+<h3>License server from database: <%= "license_#{RAILS_ENV}" %></h3>
+<table border=1>
+	<tr>
+		<td>License name in:</td><td><%= @license_name_in %></td>
+		</tr>
+		<td>Auth Code in:</td><td><%= @authorization_code_in %></td>
+		</tr>
+		<tr><td>Sys Config:</td><td><%= @sysconfig %></td></tr>
+		<tr><td>MID1:</td><td><%= @mima1 %></td></tr>
+		<tr><td>MID2:</td><td><%= @mima2 %></td></tr>
+		<tr><td>HID1:</td><td><%= @mihd1 %></td></tr>
+		<tr><td>HID2:</td><td><%= @mihd2 %></td></tr>
+		<tr><td>SID:</td><td><%= @misvd %></td></tr>
+		<tr>
+		<td>The Code Exists:</td><td><%= !@thecode.nil? %></td>
+		</tr>
+		<% if @thecode %>
+		<tr><td>The code's ln:</td><td><%= @thecode.license_name %></td></tr>
+		<tr><td>The code's ac:</td><td><%= @thecode.code %></td></tr>	
+		<tr><td>The code's scs:</td><td><%= @thecode.server_contact_suppression? %></td></tr>
+		<tr><td>Same Computer found:</td><td><%=h !@thecomp.nil? %></td></tr>
+		<% end %>			
+		<tr><td>The code's database:</td><td><%= Authcode.connection.current_database %></td></tr>
+		<tr><td>Auth log's database:</td><td><%= ActivationLog.connection.current_database %></td></tr>
+</table>

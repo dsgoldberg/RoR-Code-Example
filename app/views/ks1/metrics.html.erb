@@ -1,0 +1,146 @@
+<h1>ks1 Metrics</h1>
+
+<p><strong> 
+	<% if @range_present %>
+	<%= @range[0].to_s %> to <%= @range[1].to_s %>
+	<% else %>
+	Overall Metrics 
+	<% end %>
+	</strong></p>
+	<p>License Family: <%= select_tag :license_family, options_for_select( ["All", "ks1", "ms1"], :selected => params[:license_family]), {:onchange => "document.location.href = '#{url_for(:action => 'metrics')}' + '?license_family=' + this.options[this.selectedIndex].value;" } %></p>
+	<p><table cellpadding="5" border="1">
+		<tr>
+			<th>Measurement</th>
+			<% if @range_present %>
+			<th><%= link_to "#{@range[0].to_s} to #{@range[1].to_s}", @new_params.merge({:action => "list"}) %></th>
+			<% else %>
+			<th><%= link_to "Overall", :action => "list" %></th>
+			<th><%= link_to "Past Day", @new_params.merge({:action => "list", :start_range => Date.today.to_s, :end_range => Date.today.to_s}) %></th>
+			<th><%= link_to "Past Week", @new_params.merge({:action => "list", :start_range => (Date.today - 6).to_s, :end_range => Date.today.to_s}) %></th>
+			<th><%= link_to "Past Month", @new_params.merge({:action => "list", :start_range => (Date.today - 29).to_s, :end_range => Date.today.to_s}) %></th>
+			<th><%= link_to "Past Six Months", @new_params.merge({:action => "list", :start_range => (Date.today - 182).to_s, :end_range => Date.today.to_s}) %></th>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Average Process Time (s)</td>
+			<% if @range_present %>
+			<td><%=h @range_values[:average] %></td>
+			<% else %>
+			<td><%=h @overall_average_time %></td>
+			<td><%=h @day_average_time %></td>
+			<td><%=h @week_average_time %></td>
+			<td><%=h @month_average_time %></td>
+			<td><%=h @six_month_average_time %></td>
+			<% end %>			
+		</tr>
+		<tr>
+			<td>Maxmimum Process Time (s)</td>
+			<% if @range_present %>
+			<%= nil_to_na(@range_values[:max], method(:extreme_display))%>
+			<% else %>
+			<%= nil_to_na(@overall_max, method(:extreme_display)) %>
+			<%= nil_to_na(@day_max, method(:extreme_display)) %>
+			<%= nil_to_na(@week_max, method(:extreme_display)) %>
+			<%= nil_to_na(@month_max, method(:extreme_display)) %>
+			<%= nil_to_na(@six_month_max, method(:extreme_display)) %>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Minimum Process Time (s)</td>
+			<% if @range_present %>
+			<%= nil_to_na(@range_values[:min], method(:extreme_display))%>
+			<% else %>
+			<%= nil_to_na(@overall_min, method(:extreme_display)) %>
+			<%= nil_to_na(@day_min, method(:extreme_display)) %>
+			<%= nil_to_na(@week_min, method(:extreme_display)) %>
+			<%= nil_to_na(@month_min, method(:extreme_display)) %>
+			<%= nil_to_na(@six_month_min, method(:extreme_display)) %>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Requests per day</td>
+			<% if @range_present %>
+			<td><%= sprintf("%.2f", @range_values[:per_day])%>
+			<% else %>
+			<td><%= sprintf("%.2f", @overall_requests_per_day) %></td>
+			<td><%= sprintf("%.2f", @day_requests_per_day) %></td>
+			<td><%= sprintf("%.2f", @week_requests_per_day) %></td>
+			<td><%= sprintf("%.2f", @month_requests_per_day) %></td>
+			<td><%= sprintf("%.2f", @six_month_requests_per_day) %></td>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Peak day</td>
+			<% if @range_present %>
+			<%= nil_to_na @range_values[:peak_day], method(:peak_day_display)%>
+			<% else %>
+			<%= nil_to_na @overall_peak_day, method(:peak_day_display) %>
+			<%= nil_to_na @day_peak_day, method(:peak_day_display) %>
+			<%= nil_to_na @week_peak_day, method(:peak_day_display) %>
+			<%= nil_to_na @month_peak_day, method(:peak_day_display) %>
+			<%= nil_to_na @six_month_peak_day, method(:peak_day_display) %>	
+			<% end %>		
+		</tr>
+		<tr>
+			<td>Peak minute</td>
+			<% if @range_present %>
+			<%= nil_to_na @range_values[:peak_minute], method(:peak_minute_display)%>
+			<% else %>
+			<%= nil_to_na @overall_peak_minute, method(:peak_minute_display) %>
+			<%= nil_to_na @day_peak_minute, method(:peak_minute_display) %>
+			<%= nil_to_na @week_peak_minute, method(:peak_minute_display) %>
+			<%= nil_to_na @month_peak_minute, method(:peak_minute_display) %>
+			<%= nil_to_na @six_month_peak_minute, method(:peak_minute_display) %>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Peak LN/AC pair</td>
+			<% if @range_present %>
+			<%= nil_to_na @range_values[:peak_ac], method(:peak_ac_display) %>
+			<% else %>
+			<%= nil_to_na @overall_peak_ac, method(:peak_ac_display) %>
+			<%= nil_to_na @day_peak_ac, method(:peak_ac_display) %>
+			<%= nil_to_na @week_peak_ac, method(:peak_ac_display) %>
+			<%= nil_to_na @month_peak_ac, method(:peak_ac_display) %>
+			<%= nil_to_na @six_month_peak_ac, method(:peak_ac_display) %>
+			<% end %>
+		</tr>
+	</table>
+</p>
+
+<p><strong>Requests per day by hour</strong><br />
+	<table border=1>
+		<tr>
+			<% (0..11).each do |cur_hour| %>			
+			<th><%= cur_hour%>:00 - <%= cur_hour + 1 %>:00</th>
+			<% end %>		
+		</tr>
+		<tr>
+			<% (0..11).each do |cur_hour| %>
+			<td><%=h sprintf("%.2f", @byhour[cur_hour].length / @total_days.to_f) %></td>
+			<% end %>			
+		</tr>
+		<tr>
+			<% (12..23).each do |cur_hour| %>			
+			<th><%= cur_hour%>:00 - <%= cur_hour + 1 %>:00</th>
+			<% end %>		
+		</tr>
+		<tr>
+			<% (12..23).each do |cur_hour| %>
+			<td><%=h sprintf("%.2f", @byhour[cur_hour].length / @total_days.to_f) %></td>
+			<% end %>			
+		</tr>		
+	</table>
+</p>
+<p>Show metrics between the following dates (inclusive):</p>
+<p>
+	<% form_tag( '/ks1/metrics', :method => "get" ) do %>
+	
+		<p>License Family: <%= select_tag :license_family, options_for_select( ["All", "ks1", "ms1"], :selected => params[:license_family]) %></p>
+		<p><%= label_tag(:begin_date, "Start Date:") %>
+		<%= select_date( @range_present ? @range[0] : Date.today, :prefix => 'begin_date' )%></p>
+		<p><%= label_tag(:end_date, "End Date:") %>
+		<%= select_date( @range_present ? @range[1] : Date.today, :prefix => 'end_date' )%></p>
+		<p><%= submit_tag("Search") %></p>
+	<% end %>
+</p>

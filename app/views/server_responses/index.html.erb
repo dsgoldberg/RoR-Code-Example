@@ -1,0 +1,29 @@
+<h1>Listing server_responses</h1>
+
+<table border=1>
+  <tr>
+    <th>Product</th>
+    <th>Variant</th>
+    <th>License family</th>
+    <th>Response reason</th>
+    <th>Response message</th>
+	<th colspan=3>Command</th>
+  </tr>
+
+<% @server_responses.each do |server_response| %>
+  <tr>
+    <td><%=h server_response.product %></td>
+    <td><%=h server_response.variant %></td>
+    <td><%=h server_response.license_family %></td>
+    <td><%=h CommConsts::LS_RESPONSE_ARRAY[server_response.response_number] %></td>
+    <td><%=h server_response.response_message %></td>
+    <td><%= link_to 'Show', server_response %></td>
+    <td><%= link_to 'Edit', edit_server_response_path(server_response) %></td>
+    <td><%= link_to 'Destroy', server_response, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New server_response', new_server_response_path %>

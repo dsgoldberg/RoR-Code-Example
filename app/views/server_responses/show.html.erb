@@ -1,0 +1,28 @@
+<p>
+  <b>Product:</b>
+  <%=h @server_response.product %>
+</p>
+
+<p>
+  <b>Variant:</b>
+  <%=h @server_response.variant %>
+</p>
+
+<p>
+  <b>License family:</b>
+  <%=h @server_response.license_family %>
+</p>
+
+<p>
+  <b>Response reason:</b>
+  <%=h CommConsts::LS_RESPONSE_ARRAY[@server_response.response_number] %>
+</p>
+
+<p>
+  <b>Response message:</b>
+  <%=h @server_response.response_message %>
+</p>
+
+
+<%= link_to 'Edit', edit_server_response_path(@server_response) %> |
+<%= link_to 'Back', server_responses_path %>

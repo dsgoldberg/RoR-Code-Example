@@ -1,0 +1,5 @@
+<select name="<%= name %>">
+	<% record.column_names.each do |c| %>
+	 <option<%= if selected == c then ' selected="selected"' else '' end %>><%= c %></option>
+	<% end %>
+</select>

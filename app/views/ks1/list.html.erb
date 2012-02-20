@@ -1,0 +1,84 @@
+<h1>ks1 Request Log</h1>
+
+<form action="/ks1/list" id="search_list" method="get">
+	<p>Search for <%= render :partial => "columns_select", :locals => { :record => ActivationLog, :name => "search_column", :selected => @default_search_column } %> 
+		<select name="search_type">
+			<option <%= @exact_search ? 'selected="selected"' : '' %>>is</option>
+			<option <%= !@exact_search ? 'selected="selected"' : '' %>>contains</option>
+		</select> 
+		<input type="text" name="search_text" value="<%= params[:search_text] %>" />
+	 • Order by <%= render :partial => "columns_select", :locals => { :record => ActivationLog, :name => "sort_column", :selected => @default_sort_column } %> <select name="order"><%= options_for_select( %w[ASC DESC], @default_order)%></select> • <input type="submit" value="Search"></p>
+</form>
+
+<p>Showing items <%= @start_at %> to <%= [@start_at + 99, @total].min %> of <%= @total %><br />
+	<%= render :partial => "next_prev_links" %>
+</p>
+
+<table border=1>
+  <tr>
+	<th>Process Time</th>
+    <th>Request At</th>
+    <th>Request</th>
+	<th>Response At</th>
+    <th>Response</th>
+	<th>Response Reason</th>
+	<th>Response Message</th>
+    <th>Number of Computers</th>
+    <th>Server Contact Suppression</th>
+    <th>License Name</th>
+    <th>Authorization Code</th>
+    <th>Product</th>
+    <th>Variant</th>
+    <th>Version</th>
+    <th>Build</th>
+    <th>License Family</th>
+    <th>MIMA1</th>
+    <th>MIMA2</th>
+    <th>MIHD1</th>
+    <th>MIHD2</th>
+    <th>MISVD</th>
+    <th>IP Address</th>
+    <th>OS</th>
+    <th>Last Local Registration</th>
+	<th>Notes</th>
+  </tr>
+
+<% @activation_logs.each do |activation_log| %>
+  <tr>
+	<td><%=h activation_log.process_time %></td>
+    <td><%=h activation_log.request_at %></td>
+    <td><%=h activation_log.request %></td>
+    <td><%=h activation_log.response_at %></td>
+	<td><%=h activation_log.response %></td>
+    <td><%=h activation_log.response_reason %></td>
+	<td><%=h activation_log.response_message %></td>
+   	<td><%=h activation_log.number_of_computers %></td>
+    <td><%=h activation_log.server_contact_suppression %></td>
+	<td><%=h activation_log.license_name.force_encoding('utf-8') if !activation_log.license_name.nil? %></td>
+	<td><%=h activation_log.authorization_code %></td>
+    <td><%=h activation_log.product %></td>
+    <td><%=h activation_log.variant %></td>
+    <td><%=h activation_log.version %></td>
+    <td><%=h activation_log.build %></td>
+    <td><%=h activation_log.license_family %></td>
+    <td><%=h activation_log.mid1 %></td>
+    <td><%=h activation_log.mid2 %></td>
+    <td><%=h activation_log.hid1 %></td>
+    <td><%=h activation_log.hid2 %></td>
+    <td><%=h activation_log.sid %></td>
+    <td><%=h activation_log.ip_address %></td>
+    <td><%=h activation_log.os %></td>
+ 	<td><%=h activation_log.local_registration %></td>
+    <td><%=h activation_log.notes %></td>
+<!--    <td><%= link_to 'Show', activation_log %></td>
+    <td><%= link_to 'Edit', edit_activation_log_path(activation_log) %></td>
+    <td><%= link_to 'Destroy', activation_log, :confirm => 'Are you sure?', :method => :delete %></td> -->
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<p>
+<%= render :partial => "next_prev_links" %>
+</p>

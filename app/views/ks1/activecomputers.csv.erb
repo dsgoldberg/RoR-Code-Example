@@ -1,0 +1,18 @@
+<% require 'csv' -%>
+LastActivation, FirstActivation, LocalRegistration, MIMA1, MIMA2, MIHD1, MIHD2, MISVD, IPAddress, Version, Build, OS
+<%= CSV.generate do |csv| 
+	@complist.each do |comp|
+		csv << [comp.last_activation_time,
+				comp.first_activation_time,
+    			comp.local_registration,
+				comp.mid1,
+				comp.mid2,
+				comp.hid1,
+				comp.hid2,
+				comp.sid,
+				comp.ip_address,
+				comp.version,
+				comp.build,
+				comp.os]
+	end
+end %>

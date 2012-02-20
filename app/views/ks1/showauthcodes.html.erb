@@ -1,0 +1,47 @@
+<h1>Listing of Authorization Codes for Database <%=h Authcode.connection.current_database %> </h1>
+
+<table border=1>
+	<tr>
+		<th>License Name</th>
+		<th>License ID</th>
+		<th>Code</th>
+		<th>Status</th>
+		<th>Expiration Date</th>
+		<th>Format</th>
+		<th>Number of Computers</th>
+		<th>Additional Computers</th>
+		<th>Extra Computers</th>
+		<th>Server Contact Suppression</th>
+		<th>Number of Students</th>
+		<th>Start Date</th>
+		<th>Licensed Registrations</th>
+		<th>Additional Registrations</th>
+		<th>Active Registrations</th>
+		<th>Value</th>
+		<th>Notes</th>
+		<th>Logs</th>
+	</tr>
+	
+<% @authcodes.each do |authcode| %>	
+	<tr>
+		<td><%=h authcode.license_name %></td>
+		<td><%=h authcode.license_id %></td>
+		<td><%=h authcode.code %></td>
+		<td><%=h authcode.status %></td>
+		<td><%=h authcode.expiration_date %></td>
+		<td><%=h authcode.format %></td>
+		<td><%=h authcode.number_computers %></td>
+		<td><%=h authcode.additional_computers %></td>
+		<td><%=h authcode.extra_computers %></td>
+		<td><%=h authcode.server_contact_suppression? %></td>
+		<td><%=h authcode.number_students %></td>
+		<td><%=h authcode.start_date %></td>
+		<td><%=h authcode.licensed_registrations %></td>
+		<td><%=h authcode.additional_registrations %></td>
+		<td><%=h authcode.active_registrations %></td>
+		<td><%=h authcode.value %></td>
+		<td><%=h authcode.notes %></td>
+		<td><%=h authcode.logs %></td>
+	</tr>
+<% end %>
+</table>

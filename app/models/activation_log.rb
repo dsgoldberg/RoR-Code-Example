@@ -1,5 +1,6 @@
 # Copyright (c) 2011 Key Curriculum Press
-# All Rights Reservedrequire 'comm_consts'
+# All Rights Reserved
+require 'comm_consts'
 
 class ActivationLog < ActiveRecord::Base
   
